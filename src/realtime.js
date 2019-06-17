@@ -17,7 +17,11 @@ const run = (node, date, localeFunc, nowDate) => {
 
   // get diff seconds
   const diff = diffSec(date, nowDate);
-  // render
+  // format diff
+  const formattedDiff = formatDiff(diff, localeFunc);
+  // render if necessary
+  if (formattedDiff === node.innerText) { return; }
+
   node.innerText = formatDiff(diff, localeFunc);
 
   const tid = setTimeout(() => {
@@ -26,7 +30,7 @@ const run = (node, date, localeFunc, nowDate) => {
 
   // there is no need to save node in object. Just save the key
   TimerPool[tid] = 0;
-  saveTimerId(node, tid);
+  // saveTimerId(node, tid);
 };
 
 // 取消一个 node 的实时渲染
